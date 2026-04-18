@@ -1,4 +1,5 @@
 ﻿using Formazione;
+using Formazione.Models;
 using Formazione.Pages;
 using Formazione.Pages.Abstraction;
 
@@ -9,6 +10,10 @@ Homepage homepage = new Homepage();
 DettaglioRicetta dettaglioRicetta = new DettaglioRicetta();
 NuovaRecensione nuovaRecensione = new NuovaRecensione();
 
+Chef chef = new Chef();
+
+List<Recepit> recepit = new List<Recepit>();
+
 //-------------------------------------------------------
 
 Console.WriteLine("RICETTARIO!");
@@ -16,10 +21,10 @@ Console.WriteLine("Fornisci nome e cognome");
 string nameInput = Console.ReadLine();
 var nameInputSplitted = nameInput.Split(" ");
 
-string name = nameInputSplitted[0];
-string surname = nameInputSplitted.Length > 1 ? surname = nameInputSplitted[1] : "rossi";
+chef.Name = nameInputSplitted[0];
+chef.Surname = nameInputSplitted.Length > 1 ? nameInputSplitted[1] : "rossi";
 
-Console.WriteLine($"Il tuo nome è {name} {surname}");
+Console.WriteLine($"Il tuo nome è {chef.Name} {chef.Surname}");
 
 while(isRunning == true)
 {
@@ -43,9 +48,9 @@ while(isRunning == true)
     }
     else if (currentPage == EnumPages.CreaRicetta)
     {
-
-        CreateRecepit createRecepit = new CreateRecepit();
+        CreateRecepit createRecepit = new CreateRecepit(chef, recepit);
         ShowPage(createRecepit);
+        createRecepit.Compile();
 
         //opz 1 -> Scrivere un commento
         //opz 2 -> Leggere ingredienti
