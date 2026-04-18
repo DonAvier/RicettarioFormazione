@@ -4,6 +4,7 @@
     {
         Homepage,
         DettaglioRicetta,
-        NuovaRecensione
+        NuovaRecensione,
+        CreaRicetta
     }
 }

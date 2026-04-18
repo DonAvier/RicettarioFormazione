@@ -1,5 +1,6 @@
 ﻿using Formazione;
 using Formazione.Pages;
+using Formazione.Pages.Abstraction;
 
 bool isRunning = true;
 EnumPages currentPage = EnumPages.Homepage;
@@ -12,33 +13,47 @@ NuovaRecensione nuovaRecensione = new NuovaRecensione();
 
 Console.WriteLine("RICETTARIO!");
 Console.WriteLine("Fornisci nome e cognome");
-string nome = Console.ReadLine();
+string nameInput = Console.ReadLine();
+var nameInputSplitted = nameInput.Split(" ");
 
-Console.WriteLine($"Il tuo nome è {nome}");
+string name = nameInputSplitted[0];
+string surname = nameInputSplitted.Length > 1 ? surname = nameInputSplitted[1] : "rossi";
+
+Console.WriteLine($"Il tuo nome è {name} {surname}");
 
 while(isRunning == true)
 {
-
-
     if(currentPage == EnumPages.Homepage)
     {
-        Engine<Homepage> engine = new Engine<Homepage>(homepage);
+        ShowPage(homepage);
 
-        Console.WriteLine(engine.RenderPage());
-
-        var nextAction = Console.ReadLine();
-
-        if(nextAction == "3")
+        switch (Console.ReadLine())
         {
-            isRunning = false;
+            case "2":
+                currentPage = EnumPages.CreaRicetta;
+                break;
+            default:
+                exitPage(isRunning);
+                break;
+        };
 
-            Console.WriteLine("Grazie mille per aver usato il nostro applicativo ciao.");
-            break;
-        }
         //opz 1 -> Leggi una ricetta
         //opz 2 -> Scrivi una ricetta
         //opz 3 -> Esci
-    } else if (currentPage == EnumPages.DettaglioRicetta)
+    }
+    else if (currentPage == EnumPages.CreaRicetta)
+    {
+
+        CreateRecepit createRecepit = new CreateRecepit();
+        ShowPage(createRecepit);
+
+        //opz 1 -> Scrivere un commento
+        //opz 2 -> Leggere ingredienti
+        //opz 3 -> Leggere il procedimento
+        //opz 4 -> Torna ad homepage
+        //opz 5 -> Esci
+    }
+    else if (currentPage == EnumPages.DettaglioRicetta)
     {
 
         //opz 1 -> Scrivere un commento
@@ -55,10 +70,17 @@ while(isRunning == true)
     }
 }
 
-
-
-
-
-
 Console.WriteLine("Premi un tasto per chiudere");
 Console.ReadLine();
+
+static void exitPage(bool isRunning)
+{
+    isRunning = false;
+    Console.WriteLine("Grazie mille per aver usato il nostro applicativo ciao.");
+}
+
+static void ShowPage<TPage>(TPage page) where TPage : BasePage
+{
+    Engine<TPage> engine = new Engine<TPage>(page);
+    Console.WriteLine(engine.RenderPage());
+}
