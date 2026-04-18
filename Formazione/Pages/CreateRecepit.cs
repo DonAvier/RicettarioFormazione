@@ -28,7 +28,7 @@ namespace Formazione.Pages
             sb.AppendLine(string.Format(base.Description, Chef.Name, Chef.Surname));
 
             readFromLine(nome, "Fornisci il nome della ricetta:", sb);
-            readFromLine(ricetta, "Fornisci la ricetta:", sb);
+            readFromLine(ricetta, "Fornisci il procedimento della ricetta:", sb);
 
             sb.AppendLine("ingredienti:");
 
@@ -36,16 +36,16 @@ namespace Formazione.Pages
 
             while (isWrtingIngridents)
             {
-                sb.AppendLine("Fornisci nome e peso separati da uno spazio, una la , per i decimali");
+                sb.AppendLine("Fornisci nome e peso in grammi separati da uno spazio, una la , per i decimali");
                 var input = Console.ReadLine();
 
                 var inputSplitted = input.Split(" ");
 
                 var nome = inputSplitted[0];
                 double w = 0;
-                var isOk = double.TryParse(inputSplitted[1], out w);
+                var newIngredient = double.TryParse(inputSplitted[1], out w);
 
-                if (isOk)
+                if (newIngredient)
                 {
 
                     ingredientList.Add(new Ingredient
@@ -56,7 +56,13 @@ namespace Formazione.Pages
                 }
                 else
                 {
-                    //todo
+                    Console.WriteLine("Input non valido, inserisci nuovamente il peso in grammi con una , per i decimali");
+                    var newInput = Console.ReadLine();
+                    ingredientList.Add(new Ingredient
+                    {
+                        Name = nome,
+                        GramsAmount = double.TryParse(newInput),
+                    });
                 }
 
             }
