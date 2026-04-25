@@ -51,6 +51,18 @@ while(isRunning == true)
         CreateRecepit createRecepit = new CreateRecepit(chef, recepit);
         ShowPage(createRecepit);
         createRecepit.Compile();
+        Console.WriteLine("Se vuoi aggiungere una ricetta premi 1, premi un altro tasto per tornare alla home page");
+        switch (Console.ReadLine())
+        {
+            case "1":
+                ShowPage(createRecepit);
+                createRecepit.Compile();
+                break;
+            default:
+                currentPage = EnumPages.Homepage;
+                ShowPage(homepage);
+                break;
+        };
 
         //opz 1 -> Scrivere un commento
         //opz 2 -> Leggere ingredienti
