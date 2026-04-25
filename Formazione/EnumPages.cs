@@ -5,6 +5,7 @@
         Homepage,
         DettaglioRicetta,
         NuovaRecensione,
-        CreaRicetta
+        CreaRicetta,
+        ElencoRicetta
     }
 }

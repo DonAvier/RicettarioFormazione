@@ -60,19 +60,25 @@ namespace Formazione.Pages
             var inputSplitted = (Console.ReadLine()).Split(" ");
             var nome = inputSplitted[0];
 
-            double weigth = 0;
-            var newIngredientValid = double.TryParse(inputSplitted[1], out weigth);
-
-            if (newIngredientValid)
-                ingredientList.Add(new Ingredient
-                {
-                    Name = nome,
-                    GramsAmount = weigth,
-                });
-            else
+            if(inputSplitted.Length != 2)
             {
-                Console.WriteLine("Input non valido, inserisci nuovamente il peso in grammi con una , per i decimali");
                 addIngridient();
+            }else 
+            {
+                double weigth = 0;
+                var newIngredientValid = double.TryParse(inputSplitted[1], out weigth);
+
+                if (newIngredientValid)
+                    ingredientList.Add(new Ingredient
+                    {
+                        Name = nome,
+                        GramsAmount = weigth,
+                    });
+                else
+                {
+                    Console.WriteLine("Input non valido, inserisci nuovamente il peso in grammi con una , per i decimali");
+                    addIngridient();
+                }
             }
         }
     }

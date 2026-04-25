@@ -17,7 +17,7 @@
         public string Nome { get; set; }
         public string Ricetta { get; set; }
         public DateTime DataCreazione { get; set; }
-        public double ValutazioneMedia => Recensioni.Sum(r => r.Stars) / Recensioni.Count;
+        public double ValutazioneMedia => Recensioni == null || Recensioni.Count == 0 ? 0 : Recensioni.Sum(r => r.Stars) / Recensioni.Count;
 
 
         public Chef Cuoco { get; set; }

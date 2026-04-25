@@ -5,6 +5,7 @@ using Formazione.Pages.Abstraction;
 
 bool isRunning = true;
 EnumPages currentPage = EnumPages.Homepage;
+string nomeRicettaInAnalisi = string.Empty;
 
 Homepage homepage = new Homepage();
 DettaglioRicetta dettaglioRicetta = new DettaglioRicetta();
@@ -34,6 +35,9 @@ while(isRunning == true)
 
         switch (Console.ReadLine())
         {
+            case "1":
+                currentPage = EnumPages.ElencoRicetta;
+                break;
             case "2":
                 currentPage = EnumPages.CreaRicetta;
                 break;
@@ -41,10 +45,6 @@ while(isRunning == true)
                 exitPage(isRunning);
                 break;
         };
-
-        //opz 1 -> Leggi una ricetta
-        //opz 2 -> Scrivi una ricetta
-        //opz 3 -> Esci
     }
     else if (currentPage == EnumPages.CreaRicetta)
     {
@@ -55,8 +55,6 @@ while(isRunning == true)
         switch (Console.ReadLine())
         {
             case "1":
-                ShowPage(createRecepit);
-                createRecepit.Compile();
                 break;
             default:
                 currentPage = EnumPages.Homepage;
@@ -70,20 +68,24 @@ while(isRunning == true)
         //opz 4 -> Torna ad homepage
         //opz 5 -> Esci
     }
-    else if (currentPage == EnumPages.DettaglioRicetta)
+    else if (currentPage == EnumPages.ElencoRicetta)
     {
+        ListRecepit createRecepit = new ListRecepit(recepit);
+        ShowPage(createRecepit);
+        Console.WriteLine("Se vuoi visualizzare una ricetta premi 1 e poi digita il nome delle ricetta, premi un altro tasto per tornare alla home page");
+        switch (Console.ReadLine())
+        {
+            case "1":
+                nomeRicettaInAnalisi = Console.ReadLine();
 
-        //opz 1 -> Scrivere un commento
-        //opz 2 -> Leggere ingredienti
-        //opz 3 -> Leggere il procedimento
-        //opz 4 -> Torna ad homepage
-        //opz 5 -> Esci
-    }
-    else if (currentPage == EnumPages.NuovaRecensione)
-    {
-
-        //opz 1 -> Conferma
-        //opz 2 -> Esci
+                break;
+            default:
+                nomeRicettaInAnalisi = string.Empty;
+                currentPage = EnumPages.Homepage;
+                ShowPage(homepage);
+                break;
+        }
+        ;
     }
 }
 
