@@ -1,3 +1,4 @@
 <Solution>
   <Project Path="Formazione/Formazione.csproj" />
+  <Project Path="Ricettario.Web.MVC/Ricettario.Web.MVC.csproj" Id="5968f5e0-81fd-453b-b084-6dfc654f86f9" />
 </Solution>
